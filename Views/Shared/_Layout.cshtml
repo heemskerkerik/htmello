@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var bodyStyle = ViewData["BodyBackgroundColor"] switch
+                    {
+                        not null => $"background-color: {ViewData["BodyBackgroundColor"]}",
+                        null => null,
+                    };
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -10,9 +18,9 @@
 
     <meta name="htmx-config" content='{"methodsThatUseUrlParams":["get"]}' />
 </head>
-<body>
+<body hx-ext="debug">
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" asp-controller="Index" asp-action="Index">Htmello</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -29,13 +37,13 @@
         </div>
     </nav>
 </header>
-<div class="container-fluid">
-    <main role="main" class="pb-3">
+<div class="container-fluid" style="@bodyStyle">
+    <main role="main" class="pb-3 pt-3">
         @RenderBody()
     </main>
 </div>
 
-<script src="~/lib/htmx/htmx.min.js"></script>
+<script src="~/lib/htmx/htmx.js"></script>
 <script src="~/lib/htmx/htmx-debug.js"></script>
 <script src="~/lib/sortable/Sortable.min.js"></script>
 <script src="~/lib/hyperscript/hyperscript.min.js"></script>
