@@ -1,0 +1,14 @@
+@model htmx_trello.Lane.AddLaneModel
+
+<form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
+      hx-swap="outerHTML"
+      hx-target="this">
+    @Html.AntiForgeryToken()
+    <input asp-for="LaneName"
+           type="text"
+           class="form-control"
+           required
+           placeholder="Add a lane"
+           _="on blur hide the closest .add-lane-form then show <button.add-lane-button/>"/>
+    <span asp-validation-for="LaneName" class="text-danger"></span>
+</form>

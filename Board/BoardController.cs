@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Htmx;
 using htmx_trello.Data;
+using htmx_trello.Lane;
 using Microsoft.AspNetCore.Mvc;
 
 namespace htmx_trello.Board;
@@ -70,12 +71,8 @@ public class BoardController(BoardService boardService): Controller
     [HttpGet("/boards/{boardId:guid}/addLaneForm")]
     public IActionResult ShowAddLaneForm(Guid boardId)
     {
-        var board = boardService.GetById(boardId);
-
-        if (board is null)
-            return NotFound();
-
-        return View("_AddLane", board);
+        var model = new AddLaneModel(boardId, "");
+        return View("_AddLane", model);
     }
 
     [HttpGet("/boards/{boardId:guid}/cardCount")]

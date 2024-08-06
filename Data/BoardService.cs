@@ -134,5 +134,13 @@ public class BoardService
         return currentBoard.Lanes.SelectMany(l => l.Cards).FirstOrDefault(c => c.CardId == cardId);
     }
 
+    public bool DoesLaneExistByName(Guid boardId, string laneName)
+    {
+        if (!_boards.TryGetValue(boardId, out var board))
+            throw new Exception($"Couldn't find board {boardId}.");
+
+        return board.Lanes.Any(l => l.Name == laneName);
+    }
+
     private readonly ConcurrentDictionary<Guid, BoardDto> _boards = new();
 }

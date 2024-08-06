@@ -1,4 +1,9 @@
+@using htmx_trello.Lane
 @model htmx_trello.Data.BoardDto
+
+@{
+    var addLaneModel = new AddLaneModel(Model.BoardId, "");
+}
 
 <div class="lanes" 
      id="lanes">
@@ -9,6 +14,6 @@
     }
     <div id="endoflanes" class="visually-hidden"></div>
     <div class="add-lane">
-        <partial name="_AddLane"/>
+        <partial name="_AddLane" model="addLaneModel"/>
     </div>
 </div>

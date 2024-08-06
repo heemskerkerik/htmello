@@ -16,9 +16,21 @@ public class LaneController(BoardService boardService): Controller
         [FromForm] AddLaneRequest request
     )
     {
+        if (boardService.DoesLaneExistByName(boardId, request.LaneName))
+        {
+            ModelState.AddModelError(nameof(AddLaneRequest.LaneName), "A lane with the same name already exists.");
+            var model = new AddLaneModel(boardId, request.LaneName);
+            return View("_AddLaneForm", model);
+        }
+
         var lane = boardService.AddLane(boardId, request.LaneName);
-        
-        Response.Htmx(h => h.WithTrigger("laneAdded"));
+
+        // configure target/swap here, so we can keep the validation error case simpler
+        Response.Htmx(
+            h => h.WithTrigger("laneAdded")
+                  .Retarget("#endoflanes")
+                  .Reswap("beforebegin")
+        );
         return View("_Lane", lane);
     }
 
@@ -37,12 +49,12 @@ public class LaneController(BoardService boardService): Controller
     )
     {
         boardService.SortCards(boardId, laneId, cards);
-        
+
         Response.Htmx(h => h.WithTrigger("cardsSorted"));
 
         return NoContent();
     }
-    
+
     [HttpGet("/boards/{boardId:guid}/lanes/{laneId:guid}/cardCount")]
     public IActionResult GetCardCount(Guid boardId, Guid laneId)
     {
