@@ -3,7 +3,6 @@
 <form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
       hx-swap="outerHTML"
       hx-target="this">
-    @Html.AntiForgeryToken()
     <input asp-for="LaneName"
            type="text"
            class="form-control"

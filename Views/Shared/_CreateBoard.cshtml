@@ -3,7 +3,6 @@
 <form method="post"
       action="@Url.Action("CreateBoard", "Board")"
       hx-boost="true">
-    @Html.AntiForgeryToken()
     <div class="row mb-3">
         <label for="newBoardName" class="form-label">Name</label>
         <input type="text" class="form-control" required name="@Html.NameFor(m => m.Board.BoardName)" id="newBoardName" value="@Model.Board.BoardName" autocomplete="off">
