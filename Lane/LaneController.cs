@@ -28,6 +28,7 @@ public class LaneController(BoardService boardService): Controller
     ) => View("_AddCard", new LaneDto(laneId, "", ImmutableList<CardDto>.Empty, boardId));
 
     [HttpPut("/boards/{boardId:guid}/lanes/{laneId:guid}/sortItems")]
+    [ValidateAntiForgeryToken]
     public IActionResult SortCards(
         Guid boardId,
         Guid laneId,

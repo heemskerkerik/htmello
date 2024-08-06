@@ -4,5 +4,16 @@
 <div class="lane-card">
     <input type="hidden" name="cards" value="@Model.CardId" />
     <div class="card-text">@Model.Title</div>
-    <a href="#" class="delete"><i class="bi-trash"></i></a>
+    @* doesn't include laneId because that would change when moving between lanes, and we'd have to 
+       refresh the entire lane *@
+    @*  *@
+    <a class="delete"
+       hx-delete="/boards/@Model.BoardId/cards/@Model.CardId"
+       hx-target="closest .lane-card"
+       hx-swap="delete"
+       @* because this is inside a form, by default all the form values are submitted. we DO want the anti-forgery
+          token, but not the input that dictates sorting order *@
+       hx-params="not cards">
+        <i class="bi-trash"></i>
+    </a>
 </div>

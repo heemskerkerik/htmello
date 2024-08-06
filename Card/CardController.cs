@@ -21,4 +21,15 @@ public class CardController(BoardService boardService): Controller
 
         return View("_Card", card);
     }
+
+    [HttpDelete("/boards/{boardId:guid}/cards/{cardId:guid}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteCard(Guid boardId, Guid cardId)
+    {
+        boardService.DeleteCard(boardId, cardId);
+
+        // need to return 200 with an empty body to satisfy htmx's interpretation of HTTP/HTML spec
+        // 204 might be more appropriate, but htmx literally interprets that as 'do nothing', including swapping
+        return StatusCode(StatusCodes.Status200OK);
+    }
 }

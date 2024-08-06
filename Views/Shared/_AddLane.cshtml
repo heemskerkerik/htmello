@@ -11,8 +11,7 @@
      style="display: none">
     <form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
           hx-target="#endoflanes"
-          hx-swap="beforebegin"
-          hx-include="">
+          hx-swap="beforebegin">
         @Html.AntiForgeryToken()
         <input type="text" 
                name="laneName" 

@@ -108,5 +108,23 @@ public class BoardService
         return newBoard;
     }
 
+    public void DeleteCard(Guid boardId, Guid cardId)
+    {
+        if (!_boards.TryGetValue(boardId, out var currentBoard))
+            throw new Exception($"Couldn't find board {boardId}.");
+
+        var card = currentBoard.Lanes.SelectMany(l => l.Cards).FirstOrDefault(c => c.CardId == cardId)
+                ?? throw new Exception($"Couldn't find card {cardId} in board {boardId}.");
+        
+        var lane = currentBoard.Lanes.SingleOrDefault(l => l.LaneId == card.LaneId)
+                ?? throw new Exception($"Couldn't find lane {card.LaneId} in board {boardId}.");
+
+        var newLane = lane with { Cards = lane.Cards.Remove(card) };
+        var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Replace(lane, newLane) };
+        
+        if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
+            throw new InvalidOperationException("Failed to update board. Concurrency violation?");
+    }
+
     private readonly ConcurrentDictionary<Guid, BoardDto> _boards = new();
 }
