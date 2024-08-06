@@ -25,12 +25,6 @@ public class BoardController(BoardService boardService): Controller
         var newBoard = boardService.Add(request.BoardName, request.Color);
         string newBoardUrl = Url.Action("ViewBoard", "Board", new { boardId = newBoard.BoardId })!;
 
-        if (Request.IsHtmx())
-        {
-            Response.Htmx(h => h.Redirect(newBoardUrl));
-            return NoContent();
-        }
-
         return Redirect(newBoardUrl);
     }
 
