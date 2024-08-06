@@ -1,0 +1,7 @@
+@model htmx_trello.Data.BoardDto
+
+@{
+    Layout = null;
+}
+
+<h1 hx-get="@Url.Action("ShowEditBoardName", new { id = Model.Id })" hx-swap="outerHTML">@Model.Name</h1>
