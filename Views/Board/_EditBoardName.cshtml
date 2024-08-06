@@ -1,9 +1,5 @@
 @model htmx_trello.Data.BoardDto
 
-@{
-    Layout = null;
-}
-
 <div class="form-container">
     <form hx-put="@Url.Action("EditBoardName", new { id = Model.Id })" hx-target="closest div" hx-swap="outerHTML">
         @Html.AntiForgeryToken()
