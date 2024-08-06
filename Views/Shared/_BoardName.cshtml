@@ -1,3 +1,7 @@
 @model htmx_trello.Data.BoardDto
 
+@if ((bool) (ViewData["RenderTitleTag"] ?? false))
+{
+    <title>@Model.Name - Htmello</title>
+}
 <h1 hx-get="@Url.Action("ShowEditBoardName", new { boardId = Model.BoardId })" hx-swap="outerHTML">@Model.Name</h1>

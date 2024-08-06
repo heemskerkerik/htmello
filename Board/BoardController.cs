@@ -58,6 +58,8 @@ public class BoardController(BoardService boardService): Controller
         boardService.SetBoardName(boardId, request.BoardName);
         var editedBoard = boardService.GetById(boardId);
 
+        ViewData["RenderTitleTag"] = true;
+
         return View("_BoardName", editedBoard);
     }
 
