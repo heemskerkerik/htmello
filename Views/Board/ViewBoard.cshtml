@@ -5,40 +5,5 @@
     Layout = "_Layout";
 }
 
-<partial name="_BoardName" />
-<div class="row flex-nowrap">
-    @foreach (var lane in Model.Lanes)
-    {
-        <partial model="@lane" name="../Lane/_Lane" />
-    }
-    <div id="endoflanes" class="visually-hidden"></div>
-    <div class="col-3">
-        <partial model="@Model" name="_AddLane" />
-    </div>
-    @* <div class="col-3"> *@
-    @*     <h2>To do</h2> *@
-    @*     <div class="card"> *@
-    @*         <div class="card-body"> *@
-    @*             <p class="card-text">Invent discombobulator</p> *@
-    @*             <a href="#" class="btn btn-outline-danger">Delete</a> *@
-    @*         </div> *@
-    @*     </div> *@
-    @*     <form></form> *@
-    @* </div> *@
-    @* <div class="col-3"> *@
-    @*     <h2>In progress</h2> *@
-    @*     <div>Diss people</div> *@
-    @* </div> *@
-    @* <div class="col-3"> *@
-    @*     <h2>Blocked</h2> *@
-    @*     <div>Find a showroom</div> *@
-    @* </div> *@
-    @* <div class="col-3"> *@
-    @*     <h2>To verify</h2> *@
-    @*     <div>Write something funny</div> *@
-    @* </div> *@
-    @* <div class="col-3"> *@
-    @*     <h2>Done</h2> *@
-    @*     <div>Get a job</div> *@
-    @* </div> *@
-</div>
+<partial name="_BoardName"/>
+<partial name="_Lanes"/>

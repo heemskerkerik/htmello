@@ -26,7 +26,7 @@ public class BoardController(BoardService boardService): Controller
     public IActionResult CreateBoard([FromForm(Name = "Board")] CreateBoardRequest request)
     {
         var newBoard = boardService.Add(request.Name, request.Color);
-        string newBoardUrl = Url.Action("ViewBoard", "Board", new { boardId = newBoard.Id })!;
+        string newBoardUrl = Url.Action("ViewBoard", "Board", new { boardId = newBoard.BoardId })!;
 
         Response.Htmx(h => h.Redirect(newBoardUrl));
         return Redirect(newBoardUrl);
@@ -39,7 +39,7 @@ public class BoardController(BoardService boardService): Controller
 
         return View("_EditBoardName", board);
     }
-    
+
     [HttpGet("/boards/{boardId:guid}/name")]
     public IActionResult ShowBoardName(Guid boardId)
     {

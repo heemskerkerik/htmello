@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Htmx;
 using htmx_trello.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -24,5 +25,17 @@ public class LaneController(BoardService boardService): Controller
     public IActionResult ShowAddTicketForm(
         Guid boardId,
         Guid laneId
-    ) => View("_AddTicket", new LaneDto(laneId, "", boardId));
+    ) => View("_AddTicket", new LaneDto(laneId, "", ImmutableList<TicketDto>.Empty, boardId));
+
+    [HttpPut("/boards/{boardId:guid}/lanes/{laneId:guid}/sortItems")]
+    public IActionResult SortItems(
+        Guid boardId,
+        Guid laneId,
+        [FromForm] IReadOnlyCollection<Guid> tickets
+    )
+    {
+        var board = boardService.SortTickets(boardId, laneId, tickets);
+
+        return NoContent();
+    }
 }

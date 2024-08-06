@@ -1,9 +1,11 @@
+using Htmx;
+using htmx_trello.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace htmx_trello.Ticket;
 
 [Controller]
-public class TicketController: Controller
+public class TicketController(BoardService boardService): Controller
 {
     [HttpPost("/boards/{boardId:guid}/lanes/{laneId:guid}")]
     [ValidateAntiForgeryToken]
@@ -13,6 +15,10 @@ public class TicketController: Controller
         [FromForm] AddTicketRequest request
     )
     {
-        throw new NotImplementedException();
+        var ticket = boardService.AddTicket(boardId, laneId, request.Name);
+        
+        Response.Htmx(h => h.WithTrigger($"ticketAdded:{laneId:D}"));
+
+        return View("_Ticket", ticket);
     }
 }
