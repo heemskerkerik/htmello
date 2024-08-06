@@ -10,9 +10,8 @@
        hx-delete="/boards/@Model.BoardId/cards/@Model.CardId"
        hx-target="closest .lane-card"
        hx-swap="delete"
-       @* because this is inside a form, by default all the form values are submitted. we DO want the anti-forgery
-          token, but not the input that dictates sorting order *@
-       hx-params="not cards">
+       @* because this is inside a form, by default all the form values are submitted. we don't want the input that dictates sorting order to be submitted *@
+       hx-params="none">
         <i class="bi-trash"></i>
     </a>
 </div>
