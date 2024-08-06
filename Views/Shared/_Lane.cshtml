@@ -1,7 +1,15 @@
 @model htmx_trello.Data.LaneDto
 
 <div class="lane">
-    <h5>@Model.Name</h5>
+    <h5>
+        @Model.Name
+        <span class="badge bg-primary"
+              hx-get="@Url.Action("GetCardCount", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+              hx-trigger="cardAdded:@Model.LaneId from:body, cardRemoved:@Model.LaneId from:body, cardsSorted from:body"
+              hx-swap="innerHTML">
+            @Model.Cards.Count
+        </span>
+    </h5>
 
     <form class="sortable"
           data-lane="@Model.Name"
@@ -13,5 +21,5 @@
             <partial model="@card" name="_Card"/>
         }
     </form>
-    <partial name="_AddCard" />
+    <partial name="_AddCard"/>
 </div>
