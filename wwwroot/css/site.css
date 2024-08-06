@@ -1,0 +1,15 @@
+div.form-container {
+    div.discard-layer {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    }
+    
+    form {
+        z-index: 20;
+        position: relative;
+    }
+}

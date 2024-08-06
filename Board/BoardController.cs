@@ -39,6 +39,14 @@ public class BoardController(BoardService boardService): Controller
 
         return View("_EditBoardName", board);
     }
+    
+    [HttpGet("/boards/{id:guid}/name")]
+    public IActionResult ShowBoardName(Guid id)
+    {
+        var board = boardService.GetById(id);
+
+        return View("_BoardName", board);
+    }
 
     [HttpPut("/boards/{id:guid}/editName")]
     [ValidateAntiForgeryToken]
