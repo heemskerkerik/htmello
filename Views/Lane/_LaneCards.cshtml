@@ -1,0 +1,11 @@
+@model htmx_trello.Data.LaneDto
+
+<form class="sortable" 
+      data-lane="@Model.Name"
+      hx-put="@Url.Action("SortCards", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+      hx-trigger="add,update">
+    @foreach (var card in Model.Cards)
+    {
+        <partial model="@card" name="../Card/_Card"/>
+    }
+</form>

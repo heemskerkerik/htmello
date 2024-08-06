@@ -25,7 +25,7 @@ public class BoardController(BoardService boardService): Controller
     [ValidateAntiForgeryToken]
     public IActionResult CreateBoard([FromForm(Name = "Board")] CreateBoardRequest request)
     {
-        var newBoard = boardService.Add(request.Name, request.Color);
+        var newBoard = boardService.Add(request.BoardName, request.Color);
         string newBoardUrl = Url.Action("ViewBoard", "Board", new { boardId = newBoard.BoardId })!;
 
         Response.Htmx(h => h.Redirect(newBoardUrl));
@@ -55,7 +55,7 @@ public class BoardController(BoardService boardService): Controller
         [FromForm] EditBoardNameRequest request
     )
     {
-        boardService.SetBoardName(boardId, request.Name);
+        boardService.SetBoardName(boardId, request.BoardName);
         var editedBoard = boardService.GetById(boardId);
 
         return View("_BoardName", editedBoard);

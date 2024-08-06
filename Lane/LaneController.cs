@@ -15,26 +15,26 @@ public class LaneController(BoardService boardService): Controller
         [FromForm] AddLaneRequest request
     )
     {
-        var lane = boardService.AddLane(boardId, request.Name);
+        var lane = boardService.AddLane(boardId, request.LaneName);
         
         Response.Htmx(h => h.WithTrigger("laneAdded"));
         return View("_Lane", lane);
     }
 
-    [HttpGet("/boards/{boardId:guid}/lanes/{laneId:guid}/addTicketForm")]
-    public IActionResult ShowAddTicketForm(
+    [HttpGet("/boards/{boardId:guid}/lanes/{laneId:guid}/addCardForm")]
+    public IActionResult ShowAddCardForm(
         Guid boardId,
         Guid laneId
-    ) => View("_AddTicket", new LaneDto(laneId, "", ImmutableList<TicketDto>.Empty, boardId));
+    ) => View("_AddCard", new LaneDto(laneId, "", ImmutableList<CardDto>.Empty, boardId));
 
     [HttpPut("/boards/{boardId:guid}/lanes/{laneId:guid}/sortItems")]
-    public IActionResult SortItems(
+    public IActionResult SortCards(
         Guid boardId,
         Guid laneId,
-        [FromForm] IReadOnlyCollection<Guid> tickets
+        [FromForm] IReadOnlyCollection<Guid> cards
     )
     {
-        var board = boardService.SortTickets(boardId, laneId, tickets);
+        boardService.SortCards(boardId, laneId, cards);
 
         return NoContent();
     }
