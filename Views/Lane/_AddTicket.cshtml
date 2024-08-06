@@ -1,0 +1,10 @@
+@model htmx_trello.Data.LaneDto
+
+<div hx-get="@Url.Action("ShowAddTicketForm", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })" hx-trigger="ticketAdded:@Model.LaneId from:body">
+    <form hx-post="@Url.Action("AddTicket", "Ticket", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+          hx-target="previous .endoftickets"
+          hx-swap="beforebegin">
+        @Html.AntiForgeryToken()
+        <input name="name" required placeholder="Add new ticket"/>
+    </form>
+</div>

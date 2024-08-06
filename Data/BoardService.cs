@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace htmx_trello.Data;
 
@@ -41,7 +40,7 @@ public class BoardService
         if (currentBoard.Lanes.Any(l => l.Name == laneName))
             throw new Exception($"Board {boardId} already has a lane called '{laneName}'.");
 
-        var lane = new LaneDto(Guid.NewGuid(), laneName);
+        var lane = new LaneDto(Guid.NewGuid(), laneName, boardId);
 
         var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Add(lane) };
         
