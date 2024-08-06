@@ -1,0 +1,10 @@
+@page "/boards/{Id}/editName"
+@model htmx_trello.Pages.EditBoardName
+
+@{
+    Layout = null;
+}
+
+<form hx-post="/boards/@Model.Current.Id/editName" hx-target="this" hx-swap="outerHTML">
+    <input name="name" value="@Model.Current.Name" required placeholder="Enter board name" />
+</form>
