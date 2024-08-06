@@ -6,7 +6,6 @@
     <div class="card-text">@Model.Title</div>
     @* doesn't include laneId because that would change when moving between lanes, and we'd have to 
        refresh the entire lane *@
-    @*  *@
     <a class="delete"
        hx-delete="/boards/@Model.BoardId/cards/@Model.CardId"
        hx-target="closest .lane-card"
@@ -17,3 +16,8 @@
         <i class="bi-trash"></i>
     </a>
 </div>
+
+@if ((bool) (ViewData["RenderBoardCardCount"] ?? false))
+{
+    <vc:board-card-count board-id="@Model.BoardId" out-of-band-swap="true" />
+}
