@@ -1,0 +1,25 @@
+@model htmx_trello.Data.LaneDto
+
+<button class="btn add-card-button"
+        _="on click show next .add-card-form then hide me then focus() the first <input.form-control /> in the next .add-card-form">
+    <i class="bi-plus-lg"></i> Add a card
+</button>
+<div class="add-card-form lane-card" 
+     hx-get="@Url.Action("ShowAddCardForm", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })" 
+     hx-trigger="cardAdded:@Model.LaneId from:body"
+     hx-swap="outerHTML"
+     style="display:none">
+    <form hx-post="@Url.Action("AddCard", "Card", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+          hx-target="previous .sortable"
+          hx-swap="beforeend"
+          hx-include="">
+        @Html.AntiForgeryToken()
+        <input type="text"
+               class="form-control"
+               name="cardName" 
+               required 
+               placeholder="Add new card" 
+               autocomplete="off"
+               _="on blur hide the closest .add-card-form then show <button.add-card-button/>"/>
+    </form>
+</div>

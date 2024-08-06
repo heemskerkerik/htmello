@@ -1,0 +1,8 @@
+@model htmx_trello.Data.CardDto
+
+@* called .lane-card to differentiate from Bootstrap's .card *@
+<div class="lane-card">
+    <input type="hidden" name="cards" value="@Model.CardId" />
+    <div class="card-text">@Model.Title</div>
+    <a href="#" class="delete"><i class="bi-trash"></i></a>
+</div>

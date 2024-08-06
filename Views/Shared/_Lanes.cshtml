@@ -1,14 +1,14 @@
 @model htmx_trello.Data.BoardDto
 
-<div class="row flex-nowrap" 
+<div class="lanes" 
      id="lanes">
     @Html.AntiForgeryToken()
     @foreach (var lane in Model.Lanes)
     {
-        <partial model="@lane" name="../Lane/_Lane"/>
+        <partial model="@lane" name="_Lane"/>
     }
     <div id="endoflanes" class="visually-hidden"></div>
     <div class="col-3">
-        <partial name="../Board/_AddLane"/>
+        <partial name="_AddLane"/>
     </div>
 </div>
