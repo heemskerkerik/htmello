@@ -1,16 +1,17 @@
 @model htmx_trello.Lane.AddLaneModel
 
 <form hx-post="/boards/@Model.BoardId/lanes"
-      hx-swap="outerHTML"
-      hx-target="this">
+      hx-swap="beforebegin"
+      hx-target=".add-lane">
     <input asp-for="LaneName"
            type="text"
            class="form-control"
            required
            placeholder="Add a lane"
-           _="on blur 
-                hide the closest .add-lane-form 
-                set my value to '' 
-                show <button.add-lane-button/>"/>
+           _="on blur or laneAdded from body
+                hide <div.add-lane-form/>
+                show <button.add-lane-button/>
+                set my value to ''
+                hide the next .text-danger"/>
     <span asp-validation-for="LaneName" class="text-danger"></span>
 </form>

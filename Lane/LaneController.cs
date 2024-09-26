@@ -19,6 +19,13 @@ public class LaneController(BoardService boardService): Controller
         {
             ModelState.AddModelError(nameof(AddLaneRequest.LaneName), "A lane with the same name already exists.");
             var model = new AddLaneModel(boardId, request.LaneName);
+
+            // retarget response, so happy case is simpler
+            Response.Htmx(
+                h => h.Retarget("this")
+                      .Reswap("outerHTML")
+            );
+
             return View("_AddLaneForm", model);
         }
 
@@ -26,10 +33,9 @@ public class LaneController(BoardService boardService): Controller
 
         // configure target/swap here, so we can keep the validation error case simpler
         Response.Htmx(
-            h => h.WithTrigger("laneAdded")
-                  .Retarget("#endoflanes")
-                  .Reswap("beforebegin")
+             h => h.WithTrigger("laneAdded")
         );
+
         return View("_Lane", lane);
     }
 
