@@ -44,7 +44,7 @@ div.lanes {
             margin: 0;
         }
         
-        .sortable {
+        .card-stack {
             flex-grow: 1;
         }
         
