@@ -5,7 +5,7 @@
         @Model.Name
         <span class="badge bg-primary"
               hx-get="/boards/@Model.BoardId/lanes/@Model.LaneId/cardCount"
-              hx-trigger="cardAdded:@Model.LaneId from:body, cardRemoved:@Model.LaneId from:body, cardsSorted from:body"
+              hx-trigger="cardAdded:@Model.LaneId from:body, cardRemoved:@Model.LaneId from:body, cardsSorted:@Model.LaneId from:body"
               hx-swap="innerHTML">
             @Model.Cards.Count
         </span>
