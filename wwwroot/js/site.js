@@ -1,10 +1,9 @@
 ﻿htmx.onLoad(function(content) {
     const sortables = content.querySelectorAll(".card-stack");
-    for (let i = 0; i < sortables.length; i++) {
-        const sortable = sortables[i];
-        const sortableInstance = new Sortable(sortable, {
-            ghostClass: 'blue-background-class',
-            group: 'cards',
+    sortables.forEach(sortable => {
+        const sortableInstance = Sortable.create(sortable, {
+            group: "cards",
+            animation: 150,
         });
         
         // disable sortable whenever a request is triggered on a .card-stack
@@ -21,5 +20,5 @@
 
             sortableInstance.option("disabled", false);
         });
-    }
-})
+    });
+});

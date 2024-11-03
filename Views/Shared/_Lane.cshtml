@@ -12,7 +12,6 @@
     </h5>
 
     <form class="card-stack"
-          data-lane="@Model.Name"
           hx-put="/boards/@Model.BoardId/lanes/@Model.LaneId/sortItems"
           hx-trigger="add,update">
         @foreach (var card in Model.Cards)
@@ -30,8 +29,8 @@
     <div class="add-card-form lane-card"
         style="display:none">
         <form hx-post="/boards/@Model.BoardId/lanes/@Model.LaneId"
-            hx-target="previous .card-stack"
-            hx-swap="beforeend">
+              hx-target="previous .card-stack"
+              hx-swap="beforeend">
             <input type="text"
                    class="form-control"
                    name="cardName" 
