@@ -1,7 +1,7 @@
-using htmx_trello.Data;
+using htmello.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace htmx_trello.Board;
+namespace htmello.Board;
 
 public class BoardCardCountViewComponent(BoardService boardService): ViewComponent
 {

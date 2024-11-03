@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace htmx_trello.Lane;
+namespace htmello.Lane;
 
 public record AddLaneRequest([Required] string LaneName);

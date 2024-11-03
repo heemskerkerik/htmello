@@ -1,3 +1,3 @@
-namespace htmx_trello.Card;
+namespace htmello.Card;
 
 public record AddCardRequest(string CardName);
