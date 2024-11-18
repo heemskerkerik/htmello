@@ -18,7 +18,7 @@ div.form-container {
         height: 100%;
         z-index: 10;
     }
-    
+
     form {
         z-index: 20;
         position: relative;
@@ -29,7 +29,7 @@ div.lanes {
     display: flex;
     flex-direction: row;
     gap: 16px;
-    
+
     div.lane {
         border: 1px solid #ccc;
         border-radius: 10px;
@@ -38,16 +38,16 @@ div.lanes {
         width: 350px;
         display: flex;
         flex-direction: column;
-        
+
         h5 {
             padding: 8px;
             margin: 0;
         }
-        
+
         .card-stack {
             flex-grow: 1;
         }
-        
+
         div.lane-card {
             display: flex;
             padding: 8px;
@@ -58,25 +58,25 @@ div.lanes {
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 10px;
-            
+
             a.delete {
                 width: 1em;
                 color: #000;
                 cursor: pointer;
             }
-            
+
             a.delete:hover {
                 color: #f00;
             }
         }
-        
+
         .add-card-button {
             font-weight: 500;
             color: #64748b;
             text-align: left;
             margin: 8px;
         }
-        
+
         .add-card-button:hover {
             background-color: #e2e8f0;
         }
@@ -91,24 +91,24 @@ div.lanes {
                 width: 100%;
                 padding: 0;
             }
-            
+
             input[type=text]:focus {
                 outline: none;
             }
         }
     }
-    
+
     div.add-lane {
         width: 350px;
         display: flex;
         flex-direction: column;
-        
+
         button.btn {
             background-color: rgba(0, 0, 0, 0.1);
             font-size: 2.5rem;
             width: 70px;
         }
-        
+
         button.btn:hover {
             background-color: rgba(255, 255, 255, 0.05);
         }
