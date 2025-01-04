@@ -1,0 +1,10 @@
+@model htmx_trello.Data.BoardDto
+
+<div hx-get="@Url.Action("ShowAddLaneForm", new {id=Model.Id})" hx-trigger="laneAdded from:body">
+    <form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.Id })"
+          hx-target="#endoflanes"
+          hx-swap="beforebegin">
+        @Html.AntiForgeryToken()
+        <input name="name" required placeholder="Add new lane"/>
+    </form>
+</div>

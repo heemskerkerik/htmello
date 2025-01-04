@@ -1,9 +1,5 @@
 @model htmx_trello.Board.ICreateBoardModel
 
-@{
-    Layout = null;
-}
-
 <form method="post"
       action="@Url.Action("CreateBoard", "Board")"
       hx-boost="true">

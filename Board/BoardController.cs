@@ -60,4 +60,12 @@ public class BoardController(BoardService boardService): Controller
 
         return View("_BoardName", editedBoard);
     }
+
+    [HttpGet("/boards/{id:guid}/addLaneForm")]
+    public IActionResult ShowAddLaneForm(Guid id)
+    {
+        var board = boardService.GetById(id);
+
+        return View("_AddLane", board);
+    }
 }
