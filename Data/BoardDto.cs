@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 
-namespace htmx_trello.Data;
+namespace htmello.Data;
 
 public record BoardDto(Guid BoardId, string Name, string Color, DateTimeOffset Created, ImmutableList<LaneDto> Lanes)
 {

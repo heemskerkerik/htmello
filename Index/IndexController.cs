@@ -1,7 +1,7 @@
-using htmx_trello.Data;
+using htmello.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace htmx_trello.Index;
+namespace htmello.Index;
 
 [Controller]
 public class IndexController(BoardService boardService): Controller

@@ -1,10 +1,10 @@
 using System.Collections.Immutable;
 using System.Net.Mime;
 using Htmx;
-using htmx_trello.Data;
+using htmello.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace htmx_trello.Lane;
+namespace htmello.Lane;
 
 [Controller]
 public class LaneController(BoardService boardService): Controller

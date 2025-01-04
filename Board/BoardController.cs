@@ -1,8 +1,8 @@
 using System.Net.Mime;
-using htmx_trello.Data;
+using htmello.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace htmx_trello.Board;
+namespace htmello.Board;
 
 [Controller]
 public class BoardController(BoardService boardService): Controller

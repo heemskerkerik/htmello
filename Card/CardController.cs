@@ -1,8 +1,8 @@
 using Htmx;
-using htmx_trello.Data;
+using htmello.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace htmx_trello.Card;
+namespace htmello.Card;
 
 [Controller]
 public class CardController(BoardService boardService): Controller

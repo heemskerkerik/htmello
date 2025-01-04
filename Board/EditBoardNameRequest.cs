@@ -1,3 +1,3 @@
-namespace htmx_trello.Board;
+namespace htmello.Board;
 
 public record EditBoardNameRequest(string BoardName);

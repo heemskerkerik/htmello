@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "htmx_trello", "htmx_trello.csproj", "{284B2BF3-0325-44F9-87F5-2CDD58EFFDE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "htmello", "htmello.csproj", "{284B2BF3-0325-44F9-87F5-2CDD58EFFDE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

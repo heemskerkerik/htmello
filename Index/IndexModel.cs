@@ -1,7 +1,7 @@
-using htmx_trello.Board;
-using htmx_trello.Data;
+using htmello.Board;
+using htmello.Data;
 
-namespace htmx_trello.Index;
+namespace htmello.Index;
 
 public record IndexModel(IReadOnlyCollection<BoardDto> AllBoards): ICreateBoardModel
 {

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 
-namespace htmx_trello.Data;
+namespace htmello.Data;
 
 public class BoardService
 {

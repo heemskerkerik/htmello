@@ -1,3 +1,3 @@
-namespace htmx_trello.Lane;
+namespace htmello.Lane;
 
 public record AddLaneModel(Guid BoardId, string LaneName);
