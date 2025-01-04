@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace htmello.Lane;
 
 [Controller]
-public class LaneController(BoardService boardService): Controller
+public class LaneController(IBoardService boardService): Controller
 {
     [HttpPost("/boards/{boardId:guid}/lanes")]
     public IActionResult AddLane(

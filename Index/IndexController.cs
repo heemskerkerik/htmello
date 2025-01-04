@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace htmello.Index;
 
 [Controller]
-public class IndexController(BoardService boardService): Controller
+public class IndexController(IBoardService boardService): Controller
 {
     [HttpGet("/")]
     public IActionResult Index()

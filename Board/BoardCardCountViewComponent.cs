@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace htmello.Board;
 
-public class BoardCardCountViewComponent(BoardService boardService): ViewComponent
+public class BoardCardCountViewComponent(IBoardService boardService): ViewComponent
 {
     public IViewComponentResult Invoke(Guid boardId, bool outOfBandSwap = false)
     {

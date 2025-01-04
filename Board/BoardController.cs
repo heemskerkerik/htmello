@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace htmello.Board;
 
 [Controller]
-public class BoardController(BoardService boardService): Controller
+public class BoardController(IBoardService boardService): Controller
 {
     [HttpGet("/boards/{boardId:guid}")]
     public IActionResult ViewBoard(Guid boardId)

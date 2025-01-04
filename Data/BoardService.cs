@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace htmello.Data;
 
-public class BoardService
+public class BoardService : IBoardService
 {
     public BoardDto? GetById(Guid id) => _boards.GetValueOrDefault(id);
 

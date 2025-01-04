@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc();
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<BoardService>();
+builder.Services.AddSingleton<IBoardService, BoardService>();
 
 var app = builder.Build();
 

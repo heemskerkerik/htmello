@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace htmello.Card;
 
 [Controller]
-public class CardController(BoardService boardService): Controller
+public class CardController(IBoardService boardService): Controller
 {
     [HttpPost("/boards/{boardId:guid}/lanes/{laneId:guid}")]
     public IActionResult AddCard(
