@@ -17,7 +17,7 @@ public class CardController(BoardService boardService): Controller
     {
         var card = boardService.AddCard(boardId, laneId, request.CardName);
 
-        Response.Htmx(h => h.WithTrigger($"cardAdded:{laneId:D}"));
+        Response.Htmx(h => h.WithTrigger($"cardAdded:{laneId:D}").WithTrigger("cardAdded"));
 
         return View("_Card", card);
     }
@@ -26,7 +26,14 @@ public class CardController(BoardService boardService): Controller
     [ValidateAntiForgeryToken]
     public IActionResult DeleteCard(Guid boardId, Guid cardId)
     {
+        var card = boardService.GetCardById(boardId, cardId);
+
+        if (card is null)
+            return NotFound();
+        
         boardService.DeleteCard(boardId, cardId);
+        
+        Response.Htmx(h => h.WithTrigger($"cardRemoved:{card.LaneId:D}").WithTrigger("cardRemoved"));
 
         // need to return 200 with an empty body to satisfy htmx's interpretation of HTTP/HTML spec
         // 204 might be more appropriate, but htmx literally interprets that as 'do nothing', including swapping

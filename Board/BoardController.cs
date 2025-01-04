@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Htmx;
 using htmx_trello.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,7 @@ public class BoardController(BoardService boardService): Controller
         var board = boardService.GetById(boardId);
 
         if (board is null)
-        {
-            // handle not found
             return NotFound();
-        }
 
         return View(board);
     }
@@ -37,6 +35,9 @@ public class BoardController(BoardService boardService): Controller
     {
         var board = boardService.GetById(boardId);
 
+        if (board is null)
+            return NotFound();
+
         return View("_EditBoardName", board);
     }
 
@@ -44,6 +45,9 @@ public class BoardController(BoardService boardService): Controller
     public IActionResult ShowBoardName(Guid boardId)
     {
         var board = boardService.GetById(boardId);
+
+        if (board is null)
+            return NotFound();
 
         return View("_BoardName", board);
     }
@@ -68,6 +72,20 @@ public class BoardController(BoardService boardService): Controller
     {
         var board = boardService.GetById(boardId);
 
+        if (board is null)
+            return NotFound();
+
         return View("_AddLane", board);
+    }
+
+    [HttpGet("/boards/{boardId:guid}/cardCount")]
+    public IActionResult GetCardCount(Guid boardId)
+    {
+        var board = boardService.GetById(boardId);
+
+        if (board is null)
+            return NotFound();
+
+        return Content(board.CardCount.ToString(), MediaTypeNames.Text.Html);
     }
 }

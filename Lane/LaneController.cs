@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Net.Mime;
 using Htmx;
 using htmx_trello.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,25 @@ public class LaneController(BoardService boardService): Controller
     )
     {
         boardService.SortCards(boardId, laneId, cards);
+        
+        Response.Htmx(h => h.WithTrigger("cardsSorted"));
 
         return NoContent();
+    }
+    
+    [HttpGet("/boards/{boardId:guid}/lanes/{laneId:guid}/cardCount")]
+    public IActionResult GetCardCount(Guid boardId, Guid laneId)
+    {
+        var board = boardService.GetById(boardId);
+
+        if (board is null)
+            return NotFound();
+
+        var lane = board.Lanes.SingleOrDefault(l => l.LaneId == laneId);
+
+        if (lane is null)
+            return NotFound();
+
+        return Content(lane.Cards.Count.ToString(), MediaTypeNames.Text.Html);
     }
 }

@@ -126,5 +126,13 @@ public class BoardService
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
     }
 
+    public CardDto? GetCardById(Guid boardId, Guid cardId)
+    {
+        if (!_boards.TryGetValue(boardId, out var currentBoard))
+            throw new Exception($"Couldn't find board {boardId}.");
+
+        return currentBoard.Lanes.SelectMany(l => l.Cards).FirstOrDefault(c => c.CardId == cardId);
+    }
+
     private readonly ConcurrentDictionary<Guid, BoardDto> _boards = new();
 }
