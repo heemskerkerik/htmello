@@ -40,7 +40,7 @@ public class BoardService
         if (currentBoard.Lanes.Any(l => l.Name == laneName))
             throw new Exception($"Board {boardId} already has a lane called '{laneName}'.");
 
-        var lane = new LaneDto(Guid.NewGuid(), laneName, ImmutableList<TicketDto>.Empty, boardId);
+        var lane = new LaneDto(Guid.NewGuid(), laneName, ImmutableList<CardDto>.Empty, boardId);
 
         var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Add(lane) };
         
@@ -50,7 +50,7 @@ public class BoardService
         return lane;
     }
 
-    public TicketDto AddTicket(Guid boardId, Guid laneId, string ticketName)
+    public CardDto AddCard(Guid boardId, Guid laneId, string cardName)
     {
         if (!_boards.TryGetValue(boardId, out var currentBoard))
             throw new Exception($"Couldn't find board {boardId}.");
@@ -58,52 +58,17 @@ public class BoardService
         var currentLane = currentBoard.Lanes.SingleOrDefault(l => l.LaneId == laneId)
                 ?? throw new Exception($"Couldn't find lane {laneId} in board {boardId}.");
 
-        var ticket = new TicketDto(Guid.NewGuid(), ticketName, boardId, laneId);
-        var newLane = currentLane with { Tickets = currentLane.Tickets.Add(ticket) };
+        var card = new CardDto(Guid.NewGuid(), cardName, boardId, laneId);
+        var newLane = currentLane with { Cards = currentLane.Cards.Add(card) };
         var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Replace(currentLane, newLane) };
 
         if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
 
-        return ticket;
+        return card;
     }
 
-    public BoardDto SortTickets(Guid boardId, IReadOnlyDictionary<Guid, IReadOnlyCollection<Guid>> ticketsInLanes)
-    {
-        if (!_boards.TryGetValue(boardId, out var currentBoard))
-            throw new Exception($"Couldn't find board {boardId}.");
-        
-        // build a map of all tickets by ID, so we can easily use them to rebuild lanes
-        var allTickets = currentBoard.Lanes.SelectMany(l => l.Tickets).ToDictionary(t => t.TicketId);
-
-        var lanes = currentBoard.Lanes;
-
-        // sort tickets for lanes that are in ticketsInLanes
-        foreach (var pair in ticketsInLanes)
-        {
-            var currentLane = lanes.SingleOrDefault(l => l.LaneId == pair.Key)
-                           ?? throw new Exception($"Couldn't find lane {pair.Key} in board {boardId}.");
-
-            var lane = currentLane with { Tickets = pair.Value.Select(id => allTickets[id]).ToImmutableList() };
-            lanes = lanes.Replace(currentLane, lane);
-        }
-        
-        // other lanes must be empty
-        foreach (var lane in lanes.Where(l => !ticketsInLanes.ContainsKey(l.LaneId) && !l.Tickets.IsEmpty))
-        {
-            var newLane = lane with { Tickets = ImmutableList<TicketDto>.Empty };
-            lanes = lanes.Replace(lane, newLane);
-        }
-
-        var newBoard = currentBoard with { Lanes = lanes };
-        
-        if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
-            throw new InvalidOperationException("Failed to update board. Concurrency violation?");
-
-        return newBoard;
-    }
-
-    public BoardDto SortTickets(Guid boardId, Guid laneId, IReadOnlyCollection<Guid> tickets)
+    public BoardDto SortCards(Guid boardId, Guid laneId, IReadOnlyCollection<Guid> cards)
     {
         if (!_boards.TryGetValue(boardId, out var currentBoard))
             throw new Exception($"Couldn't find board {boardId}.");
@@ -111,28 +76,28 @@ public class BoardService
         var currentLane = currentBoard.Lanes.SingleOrDefault(l => l.LaneId == laneId)
                        ?? throw new Exception($"Couldn't find lane {laneId} in board {boardId}.");
         
-        // build a map of all tickets in all lanes by ID, so we can easily use them to rebuild lanes
-        var allTickets = currentBoard.Lanes.SelectMany(l => l.Tickets).ToDictionary(t => t.TicketId);
+        // build a map of all cards in all lanes by ID, so we can easily use them to rebuild lanes
+        var allCards = currentBoard.Lanes.SelectMany(l => l.Cards).ToDictionary(t => t.CardId);
         var allLanes = currentBoard.Lanes.ToDictionary(l => l.LaneId);
 
-        var newTickets = tickets.Select(id => allTickets[id]).ToList();
+        var newCards = cards.Select(id => allCards[id]).ToList();
 
-        for (int index = 0; index < newTickets.Count; index++)
+        for (int index = 0; index < newCards.Count; index++)
         {
-            var ticket = newTickets[index];
+            var card = newCards[index];
             
-            // ticket came from this lane, no need to modify anything
-            if (ticket.LaneId == laneId)
+            // card came from this lane, no need to modify anything
+            if (card.LaneId == laneId)
                 continue;
             
-            newTickets[index] = ticket with { LaneId = laneId };
+            newCards[index] = card with { LaneId = laneId };
 
-            var oldLane = allLanes[ticket.LaneId];
-            oldLane = oldLane with { Tickets = oldLane.Tickets.Remove(ticket) };
-            allLanes[ticket.LaneId] = oldLane;
+            var oldLane = allLanes[card.LaneId];
+            oldLane = oldLane with { Cards = oldLane.Cards.Remove(card) };
+            allLanes[card.LaneId] = oldLane;
         }
 
-        allLanes[laneId] = currentLane with { Tickets = newTickets.ToImmutableList() };
+        allLanes[laneId] = currentLane with { Cards = newCards.ToImmutableList() };
         var newLanes = currentBoard.Lanes.Select(l => allLanes[l.LaneId]).ToImmutableList();
 
         var newBoard = currentBoard with { Lanes = newLanes };

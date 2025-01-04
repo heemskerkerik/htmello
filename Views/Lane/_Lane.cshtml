@@ -2,7 +2,15 @@
 
 <div class="col-3">
     <h2>@Model.Name</h2>
-    
-    <partial name="../Lane/_LaneTickets" />
-    <partial name="_AddTicket" />
+
+    <form class="sortable"
+          data-lane="@Model.Name"
+          hx-put="@Url.Action("SortCards", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+          hx-trigger="add,update">
+        @foreach (var card in Model.Cards)
+        {
+            <partial model="@card" name="../Card/_Card"/>
+        }
+    </form>
+    <partial name="../Lane/_AddCard" />
 </div>

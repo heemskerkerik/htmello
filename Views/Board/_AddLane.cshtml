@@ -2,12 +2,12 @@
 
 <div hx-get="@Url.Action("ShowAddLaneForm", new { boardId = Model.BoardId })" 
      hx-trigger="laneAdded from:body"
-     hx-include="">
+     hx-swap="outerHTML">
     <form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
           hx-target="#endoflanes"
           hx-swap="beforebegin"
           hx-include="">
         @Html.AntiForgeryToken()
-        <input name="name" required placeholder="Add new lane"/>
+        <input type="text" name="laneName" class="form-control" required placeholder="Add a lane" />
     </form>
 </div>

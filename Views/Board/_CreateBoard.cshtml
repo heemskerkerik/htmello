@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
     <div class="row mb-3">
         <label for="newBoardName" class="form-label">Name</label>
-        <input type="text" class="form-control" required name="@Html.NameFor(m => m.Board.Name)" id="newBoardName" value="@Model.Board.Name">
+        <input type="text" class="form-control" required name="@Html.NameFor(m => m.Board.BoardName)" id="newBoardName" value="@Model.Board.BoardName" autocomplete="off">
     </div>
     <div class="row mb-3 align-items-center">
         <label class="col-2 col-form-label" for="newBoardColor">Color</label>
