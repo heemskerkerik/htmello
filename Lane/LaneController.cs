@@ -19,4 +19,10 @@ public class LaneController(BoardService boardService): Controller
         Response.Htmx(h => h.WithTrigger("laneAdded"));
         return View("_Lane", lane);
     }
+
+    [HttpGet("/boards/{boardId:guid}/lanes/{laneId:guid}/addTicketForm")]
+    public IActionResult ShowAddTicketForm(
+        Guid boardId,
+        Guid laneId
+    ) => View("_AddTicket", new LaneDto(laneId, "", boardId));
 }
