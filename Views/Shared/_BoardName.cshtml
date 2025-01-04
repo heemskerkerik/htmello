@@ -4,7 +4,7 @@
 {
     <title>@Model.Name - Htmello</title>
 }
-<h1 hx-get="@Url.Action("ShowEditBoardName", new { boardId = Model.BoardId })"
+<h1 hx-get="/boards/@Model.BoardId/editName"
     hx-swap="outerHTML">
     @Model.Name
     <vc:board-card-count board-id="@Model.BoardId" />

@@ -5,7 +5,7 @@
     <i class="bi-plus-lg"></i>
 </button>
 <div class="add-lane-form"
-     hx-get="@Url.Action("ShowAddLaneForm", new { boardId = Model.BoardId })"
+     hx-get="/boards/@Model.BoardId/addLaneForm"
      hx-trigger="laneAdded from:body"
      hx-target="closest .add-lane"
      style="display: none">

@@ -23,7 +23,7 @@ public class BoardController(BoardService boardService): Controller
     public IActionResult CreateBoard([FromForm(Name = "Board")] CreateBoardRequest request)
     {
         var newBoard = boardService.Add(request.BoardName, request.Color);
-        string newBoardUrl = Url.Action("ViewBoard", "Board", new { boardId = newBoard.BoardId })!;
+        string newBoardUrl = $"/boards/{newBoard.BoardId}"!;
 
         return Redirect(newBoardUrl);
     }

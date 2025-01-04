@@ -21,7 +21,7 @@
             <div class="card" style="border-bottom: 3px solid @board.Color">
                 <div class="card-body">
                     <h5 class="card-title mb-0">
-                        <a href="@Url.Action("ViewBoard", "Board", new { boardId = board.BoardId })">@board.Name</a>
+                        <a href="/boards/@board.BoardId">@board.Name</a>
                     </h5>
                 </div>
             </div>

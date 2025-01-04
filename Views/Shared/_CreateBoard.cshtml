@@ -1,7 +1,7 @@
 @model htmx_trello.Board.ICreateBoardModel
 
 <form method="post"
-      action="@Url.Action("CreateBoard", "Board")"
+      action="/boards"
       hx-boost="true">
     <div class="row mb-3">
         <label for="newBoardName" class="form-label">Name</label>

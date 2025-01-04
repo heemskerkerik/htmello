@@ -4,7 +4,7 @@
     <h5>
         @Model.Name
         <span class="badge bg-primary"
-              hx-get="@Url.Action("GetCardCount", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+              hx-get="/boards/@Model.BoardId/lanes/@Model.LaneId/cardCount"
               hx-trigger="cardAdded:@Model.LaneId from:body, cardRemoved:@Model.LaneId from:body, cardsSorted from:body"
               hx-swap="innerHTML">
             @Model.Cards.Count
@@ -13,7 +13,7 @@
 
     <form class="sortable"
           data-lane="@Model.Name"
-          hx-put="@Url.Action("SortCards", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
+          hx-put="/boards/@Model.BoardId/lanes/@Model.LaneId/sortItems"
           hx-trigger="add,update">
         @foreach (var card in Model.Cards)
         {

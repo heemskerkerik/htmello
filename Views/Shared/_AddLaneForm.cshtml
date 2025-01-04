@@ -1,6 +1,6 @@
 @model htmx_trello.Lane.AddLaneModel
 
-<form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
+<form hx-post="/boards/@Model.BoardId/lanes"
       hx-swap="outerHTML"
       hx-target="this">
     <input asp-for="LaneName"
