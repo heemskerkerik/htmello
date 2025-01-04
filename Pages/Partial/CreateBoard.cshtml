@@ -1,0 +1,22 @@
+@model htmx_trello.Pages.Models.ICreateBoardModel
+
+@{
+    Layout = null;
+}
+
+<form method="post"
+      action="@Url.Page("CreateBoard")"
+      hx-boost="true">
+    @Html.AntiForgeryToken()
+    <div class="row mb-3">
+        <label for="newBoardName" class="form-label">Name</label>
+        <input type="text" class="form-control" required name="@Html.NameFor(m => m.Board.Name)" id="newBoardName" value="@Model.Board.Name">
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col-2 col-form-label" for="newBoardColor">Color</label>
+        <div class="col-2">
+            <input type="color" class="form-control" id="newBoardColor" name="@Html.NameFor(m => m.Board.Color)" value="@Model.Board.Color"/>
+        </div>
+        <button class="col-8 btn btn-primary">Create</button>
+    </div>
+</form>

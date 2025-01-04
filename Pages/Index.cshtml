@@ -5,22 +5,23 @@
 }
 
 <div class="row">
-    <div class="col-4">
-        <h5 class="card-title">New board</h5>
-        <form method="post" 
-              action="@Url.Page("CreateBoard")" 
-              hx-boost="true"
-              hx-swap="outerHTML">
-            <div class="row mb-3">
-                <label for="newBoardName" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="newBoardName">
-            </div>
-            <div class="row mb-3">
-                <label class="col-3 col-form-label" for="newBoardColor">Color</label>
-                <div class="col-1">
-                    <input type="color" class="form-control col-1" id="newBoardColor" name="color" />
+    <div style="width: 400px;">
+        <h5>New board</h5>
+        <partial name="Partial/CreateBoard" />
+    </div>
+</div>
+<div class="row">
+    <h3>Boards</h3>
+</div>
+<div class="row flex-nowrap">
+    @foreach (var board in Model.AllBoards)
+    {
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/boards/@board.Id">@board.Name</a></h5>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    }
 </div>

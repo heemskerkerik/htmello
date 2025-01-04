@@ -1,18 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
+using htmx_trello.Data;
+using htmx_trello.Pages.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace htmx_trello.Pages;
 
-public class IndexModel: PageModel
+public class IndexModel(BoardService boardService): PageModel, ICreateBoardModel
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
-    {
-        _logger = logger;
-    }
-
     public void OnGet()
     {
+        AllBoards = boardService.GetAll();
     }
+
+    public CreateBoardRequest Board { get; } = new("", "#6968cd");
+    public IReadOnlyCollection<BoardDto> AllBoards { get; private set; } = [];
 }
