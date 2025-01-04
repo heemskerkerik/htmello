@@ -1,0 +1,9 @@
+@model htmx_trello.Data.TicketDto
+
+<div class="card">
+    <div class="card-body">
+        <input type="hidden" name="tickets" value="@Model.TicketId" />
+        <p class="card-text">@Model.Title</p>
+        <a href="#" class="btn btn-outline-danger">Delete</a>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 <div class="col-3">
     <h2>@Model.Name</h2>
-    <div class="endoftickets visually-hidden"></div>
-    <partial model="@Model" name="_AddTicket" />
+    
+    <partial name="../Lane/_LaneTickets" />
+    <partial name="_AddTicket" />
 </div>

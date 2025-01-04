@@ -1,9 +1,9 @@
 @model htmx_trello.Data.BoardDto
 
 <div class="form-container">
-    <form hx-put="@Url.Action("EditBoardName", new { boardId = Model.Id })" hx-target="closest div" hx-swap="outerHTML">
+    <form hx-put="@Url.Action("EditBoardName", new { boardId = Model.BoardId })" hx-target="closest div" hx-swap="outerHTML">
         @Html.AntiForgeryToken()
         <input name="name" value="@Model.Name" required placeholder="Enter board name"/>
     </form>
-    <div hx-get="@Url.Action("ShowBoardName", new { boardId = Model.Id })" hx-target="closest div.form-container" hx-swap="outerHTML" class="discard-layer"></div>
+    <div hx-get="@Url.Action("ShowBoardName", new { boardId = Model.BoardId })" hx-target="closest div.form-container" hx-swap="outerHTML" class="discard-layer"></div>
 </div>
