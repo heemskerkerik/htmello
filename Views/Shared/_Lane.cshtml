@@ -1,7 +1,7 @@
 @model htmx_trello.Data.LaneDto
 
-<div class="col-3">
-    <h2>@Model.Name</h2>
+<div class="lane">
+    <h5>@Model.Name</h5>
 
     <form class="sortable"
           data-lane="@Model.Name"
@@ -9,8 +9,8 @@
           hx-trigger="add,update">
         @foreach (var card in Model.Cards)
         {
-            <partial model="@card" name="../Card/_Card"/>
+            <partial model="@card" name="_Card"/>
         }
     </form>
-    <partial name="../Lane/_AddCard" />
+    <partial name="_AddCard" />
 </div>
