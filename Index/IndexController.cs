@@ -10,7 +10,7 @@ public class IndexController(BoardService boardService): Controller
     public IActionResult Index()
     {
         var allBoards = boardService.GetAll();
-        
+
         return View(new IndexModel(allBoards));
     }
 }

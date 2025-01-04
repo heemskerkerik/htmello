@@ -36,14 +36,14 @@ public class BoardService
     {
         if (!_boards.TryGetValue(boardId, out var currentBoard))
             throw new Exception($"Couldn't find board {boardId}.");
-        
+
         if (currentBoard.Lanes.Any(l => l.Name == laneName))
             throw new Exception($"Board {boardId} already has a lane called '{laneName}'.");
 
         var lane = new LaneDto(Guid.NewGuid(), laneName, ImmutableList<CardDto>.Empty, boardId);
 
         var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Add(lane) };
-        
+
         if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
 
@@ -75,7 +75,7 @@ public class BoardService
 
         var currentLane = currentBoard.Lanes.SingleOrDefault(l => l.LaneId == laneId)
                        ?? throw new Exception($"Couldn't find lane {laneId} in board {boardId}.");
-        
+
         // build a map of all cards in all lanes by ID, so we can easily use them to rebuild lanes
         var allCards = currentBoard.Lanes.SelectMany(l => l.Cards).ToDictionary(t => t.CardId);
         var allLanes = currentBoard.Lanes.ToDictionary(l => l.LaneId);
@@ -88,11 +88,11 @@ public class BoardService
         for (int index = 0; index < newCards.Count; index++)
         {
             var card = newCards[index];
-            
+
             // card came from this lane, no need to modify anything
             if (card.LaneId == laneId)
                 continue;
-            
+
             newCards[index] = card with { LaneId = laneId };
 
             var oldLane = allLanes[card.LaneId];
@@ -106,7 +106,7 @@ public class BoardService
         var newLanes = currentBoard.Lanes.Select(l => allLanes[l.LaneId]).ToImmutableList();
 
         var newBoard = currentBoard with { Lanes = newLanes };
-        
+
         if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
 
@@ -120,13 +120,13 @@ public class BoardService
 
         var card = currentBoard.Lanes.SelectMany(l => l.Cards).FirstOrDefault(c => c.CardId == cardId)
                 ?? throw new Exception($"Couldn't find card {cardId} in board {boardId}.");
-        
+
         var lane = currentBoard.Lanes.SingleOrDefault(l => l.LaneId == card.LaneId)
                 ?? throw new Exception($"Couldn't find lane {card.LaneId} in board {boardId}.");
 
         var newLane = lane with { Cards = lane.Cards.Remove(card) };
         var newBoard = currentBoard with { Lanes = currentBoard.Lanes.Replace(lane, newLane) };
-        
+
         if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
     }
