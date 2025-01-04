@@ -11,8 +11,7 @@
      style="display:none">
     <form hx-post="@Url.Action("AddCard", "Card", new { boardId = Model.BoardId, laneId = Model.LaneId })"
           hx-target="previous .sortable"
-          hx-swap="beforeend"
-          hx-include="">
+          hx-swap="beforeend">
         @Html.AntiForgeryToken()
         <input type="text"
                class="form-control"

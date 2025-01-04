@@ -54,8 +54,8 @@ div.lanes {
             
             a.delete {
                 width: 1em;
-                height: 1em;
                 color: #000;
+                cursor: pointer;
             }
             
             a.delete:hover {
