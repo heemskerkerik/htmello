@@ -4,7 +4,10 @@
     Layout = null;
 }
 
-<form hx-put="@Url.Action("EditBoardName", new { id = Model.Id })" hx-target="closest div" hx-swap="outerHTML">
-    @Html.AntiForgeryToken()
-    <input name="name" value="@Model.Name" required placeholder="Enter board name"/>
-</form>
+<div class="form-container">
+    <form hx-put="@Url.Action("EditBoardName", new { id = Model.Id })" hx-target="closest div" hx-swap="outerHTML">
+        @Html.AntiForgeryToken()
+        <input name="name" value="@Model.Name" required placeholder="Enter board name"/>
+    </form>
+    <div hx-get="@Url.Action("ShowBoardName", new { id = Model.Id })" hx-target="closest div.form-container" hx-swap="outerHTML" class="discard-layer"></div>
+</div>
