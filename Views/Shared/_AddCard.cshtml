@@ -1,7 +1,10 @@
 @model htmx_trello.Data.LaneDto
 
 <button class="btn add-card-button"
-        _="on click show next .add-card-form then hide me then focus() the first <input.form-control /> in the next .add-card-form">
+        _="on click
+             show next .add-card-form 
+             hide me 
+             focus() the first <input.form-control /> in the next .add-card-form">
     <i class="bi-plus-lg"></i> Add a card
 </button>
 <div class="add-card-form lane-card" 
@@ -18,6 +21,9 @@
                required 
                placeholder="Add new card" 
                autocomplete="off"
-               _="on blur hide the closest .add-card-form then show <button.add-card-button/>"/>
+               _="on blur 
+                    hide the closest .add-card-form
+                    set my value to '' 
+                    show <button.add-card-button/>"/>
     </form>
 </div>
