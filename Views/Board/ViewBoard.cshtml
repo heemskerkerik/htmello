@@ -1,7 +1,11 @@
-@page "/boards/{Id}"
-@model htmx_trello.Pages.Board
+@model htmx_trello.Data.BoardDto
 
-<partial for="@Model.Current" name="Partial/BoardName" />
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "_Layout";
+}
+
+<partial name="_BoardName" />
 <div class="row flex-nowrap">
     <div class="col-3">
         <h2>To do</h2>

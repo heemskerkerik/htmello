@@ -1,4 +1,4 @@
-namespace htmx_trello.Pages.Models;
+namespace htmx_trello.Board;
 
 public interface ICreateBoardModel
 {
