@@ -1,13 +1,24 @@
 @model htmx_trello.Data.BoardDto
 
-<div hx-get="@Url.Action("ShowAddLaneForm", new { boardId = Model.BoardId })" 
+<button class="btn add-lane-button"
+        _="on click show next .add-lane-form then hide me then focus() the first <input.form-control /> in the next .add-lane-form">
+    <i class="bi-plus-lg"></i>
+</button>
+<div class="add-lane-form"
+     hx-get="@Url.Action("ShowAddLaneForm", new { boardId = Model.BoardId })" 
      hx-trigger="laneAdded from:body"
-     hx-swap="outerHTML">
+     hx-target="closest .add-lane"
+     style="display: none">
     <form hx-post="@Url.Action("AddLane", "Lane", new { boardId = Model.BoardId })"
           hx-target="#endoflanes"
           hx-swap="beforebegin"
           hx-include="">
         @Html.AntiForgeryToken()
-        <input type="text" name="laneName" class="form-control" required placeholder="Add a lane" />
+        <input type="text" 
+               name="laneName" 
+               class="form-control" 
+               required 
+               placeholder="Add a lane"
+               _="on blur hide the closest .add-lane-form then show <button.add-lane-button/>" />
     </form>
 </div>
