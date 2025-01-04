@@ -11,7 +11,7 @@
         </span>
     </h5>
 
-    <form class="sortable"
+    <form class="card-stack"
           data-lane="@Model.Name"
           hx-put="/boards/@Model.BoardId/lanes/@Model.LaneId/sortItems"
           hx-trigger="add,update">
@@ -20,5 +20,28 @@
             <partial model="@card" name="_Card"/>
         }
     </form>
-    <partial name="_AddCard"/>
+    <button class="btn add-card-button"
+            _="on click
+                show next .add-card-form 
+                hide me 
+                focus() the first <input[type=text] /> in the next .add-card-form">
+        <i class="bi-plus-lg"></i> Add a card
+    </button>
+    <div class="add-card-form lane-card"
+        style="display:none">
+        <form hx-post="/boards/@Model.BoardId/lanes/@Model.LaneId"
+            hx-target="previous .card-stack"
+            hx-swap="beforeend">
+            <input type="text"
+                   class="form-control"
+                   name="cardName" 
+                   required 
+                   placeholder="Add new card" 
+                   autocomplete="off"
+                   _="on blur or cardAdded from body
+                        hide the closest .add-card-form
+                        set my value to '' 
+                        show <button.add-card-button/>"/>
+        </form>
+    </div>
 </div>

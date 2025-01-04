@@ -1,6 +1,5 @@
 using System.Net.Mime;
 using htmx_trello.Data;
-using htmx_trello.Lane;
 using Microsoft.AspNetCore.Mvc;
 
 namespace htmx_trello.Board;
