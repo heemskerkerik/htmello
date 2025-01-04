@@ -28,28 +28,6 @@ public class BoardController(BoardService boardService): Controller
         return Redirect(newBoardUrl);
     }
 
-    [HttpGet("/boards/{boardId:guid}/editName")]
-    public IActionResult ShowEditBoardName(Guid boardId)
-    {
-        var board = boardService.GetById(boardId);
-
-        if (board is null)
-            return NotFound();
-
-        return View("_EditBoardName", board);
-    }
-
-    [HttpGet("/boards/{boardId:guid}/name")]
-    public IActionResult ShowBoardName(Guid boardId)
-    {
-        var board = boardService.GetById(boardId);
-
-        if (board is null)
-            return NotFound();
-
-        return View("_BoardName", board);
-    }
-
     [HttpPut("/boards/{boardId:guid}/editName")]
     public IActionResult EditBoardName(
         Guid boardId,

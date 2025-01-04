@@ -4,8 +4,25 @@
 {
     <title>@Model.Name - Htmello</title>
 }
-<h1 hx-get="/boards/@Model.BoardId/editName"
-    hx-swap="outerHTML">
+<h1 _="on click
+         hide me
+         show the next <form />
+         focus() on the first <input[type=text]/> in the next <form />">
     @Model.Name
     <vc:board-card-count board-id="@Model.BoardId" />
 </h1>
+<form hx-put="/boards/@Model.BoardId/editName" 
+      hx-swap="outerHTML"
+      style="display: none">
+    <input type="text"
+           id="boardName"
+           name="boardName"
+           value="@Model.Name"
+           required
+           placeholder="Enter board name"
+           autocomplete="off"
+           _="on blur
+                reset() the closest <form />
+                hide the closest <form />
+                show the previous <h1 />" />
+</form>
