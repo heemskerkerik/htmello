@@ -64,13 +64,6 @@ public class BoardController(BoardService boardService): Controller
         return View("_BoardName", editedBoard);
     }
 
-    [HttpGet("/boards/{boardId:guid}/addLaneForm")]
-    public IActionResult ShowAddLaneForm(Guid boardId)
-    {
-        var model = new AddLaneModel(boardId, "");
-        return View("_AddLane", model);
-    }
-
     [HttpGet("/boards/{boardId:guid}/cardCount")]
     public IActionResult GetCardCount(Guid boardId)
     {

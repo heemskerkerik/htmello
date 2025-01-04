@@ -4,13 +4,10 @@
         _="on click 
              show next .add-lane-form 
              hide me 
-             focus() the first <input[type=text] /> in the next .add-lane-form">
+             focus() on the first <input[type=text] /> in the next .add-lane-form">
     <i class="bi-plus-lg"></i>
 </button>
-<div class="add-lane-form"
-     hx-get="/boards/@Model.BoardId/addLaneForm"
-     hx-trigger="laneAdded from:body"
-     hx-target="closest .add-lane"
+<div class="add-lane-form"    
      style="display: none">
     <partial name="_AddLaneForm" />
 </div>
