@@ -1,5 +1,4 @@
 using System.Net.Mime;
-using Htmx;
 using htmx_trello.Data;
 using htmx_trello.Lane;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,6 @@ public class BoardController(BoardService boardService): Controller
     }
 
     [HttpPost("/boards")]
-    [ValidateAntiForgeryToken]
     public IActionResult CreateBoard([FromForm(Name = "Board")] CreateBoardRequest request)
     {
         var newBoard = boardService.Add(request.BoardName, request.Color);
@@ -59,7 +57,6 @@ public class BoardController(BoardService boardService): Controller
     }
 
     [HttpPut("/boards/{boardId:guid}/editName")]
-    [ValidateAntiForgeryToken]
     public IActionResult EditBoardName(
         Guid boardId,
         [FromForm] EditBoardNameRequest request

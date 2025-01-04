@@ -8,7 +8,6 @@ namespace htmx_trello.Card;
 public class CardController(BoardService boardService): Controller
 {
     [HttpPost("/boards/{boardId:guid}/lanes/{laneId:guid}")]
-    [ValidateAntiForgeryToken]
     public IActionResult AddCard(
         Guid boardId,
         Guid laneId,
@@ -25,7 +24,6 @@ public class CardController(BoardService boardService): Controller
     }
 
     [HttpDelete("/boards/{boardId:guid}/cards/{cardId:guid}")]
-    [ValidateAntiForgeryToken]
     public IActionResult DeleteCard(Guid boardId, Guid cardId)
     {
         var card = boardService.GetCardById(boardId, cardId);

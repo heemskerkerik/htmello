@@ -7,7 +7,6 @@
 
 <div class="lanes" 
      id="lanes">
-    @Html.AntiForgeryToken()
     @foreach (var lane in Model.Lanes)
     {
         <partial model="@lane" name="_Lane"/>

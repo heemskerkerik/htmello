@@ -15,7 +15,6 @@
           data-lane="@Model.Name"
           hx-put="@Url.Action("SortCards", "Lane", new { boardId = Model.BoardId, laneId = Model.LaneId })"
           hx-trigger="add,update">
-        @Html.AntiForgeryToken()
         @foreach (var card in Model.Cards)
         {
             <partial model="@card" name="_Card"/>
