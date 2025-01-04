@@ -68,7 +68,7 @@ public class BoardService
         return card;
     }
 
-    public BoardDto SortCards(Guid boardId, Guid laneId, IReadOnlyCollection<Guid> cards)
+    public IReadOnlyCollection<Guid> SortCards(Guid boardId, Guid laneId, IReadOnlyCollection<Guid> cards)
     {
         if (!_boards.TryGetValue(boardId, out var currentBoard))
             throw new Exception($"Couldn't find board {boardId}.");
@@ -81,6 +81,9 @@ public class BoardService
         var allLanes = currentBoard.Lanes.ToDictionary(l => l.LaneId);
 
         var newCards = cards.Select(id => allCards[id]).ToList();
+
+        // the current board is always assumed to be affected
+        var affectedLaneIds = new HashSet<Guid> { laneId };
 
         for (int index = 0; index < newCards.Count; index++)
         {
@@ -95,6 +98,8 @@ public class BoardService
             var oldLane = allLanes[card.LaneId];
             oldLane = oldLane with { Cards = oldLane.Cards.Remove(card) };
             allLanes[card.LaneId] = oldLane;
+
+            affectedLaneIds.Add(card.LaneId);
         }
 
         allLanes[laneId] = currentLane with { Cards = newCards.ToImmutableList() };
@@ -105,7 +110,7 @@ public class BoardService
         if (!_boards.TryUpdate(boardId, newBoard, currentBoard))
             throw new InvalidOperationException("Failed to update board. Concurrency violation?");
 
-        return newBoard;
+        return affectedLaneIds;
     }
 
     public void DeleteCard(Guid boardId, Guid cardId)

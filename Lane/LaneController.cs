@@ -33,7 +33,7 @@ public class LaneController(BoardService boardService): Controller
 
         // configure target/swap here, so we can keep the validation error case simpler
         Response.Htmx(
-             h => h.WithTrigger("laneAdded")
+            h => h.WithTrigger("laneAdded")
         );
 
         return View("_Lane", lane);
@@ -46,9 +46,14 @@ public class LaneController(BoardService boardService): Controller
         [FromForm] IReadOnlyCollection<Guid> cards
     )
     {
-        boardService.SortCards(boardId, laneId, cards);
+        var affectedLaneIds = boardService.SortCards(boardId, laneId, cards);
 
-        Response.Htmx(h => h.WithTrigger("cardsSorted"));
+        Response.Htmx(h =>
+        {
+            h.WithTrigger("cardsSorted");
+            foreach (var id in affectedLaneIds)
+                h.WithTrigger($"cardsSorted:{id}");
+        });
 
         return NoContent();
     }
