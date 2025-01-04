@@ -7,10 +7,5 @@
 <h1 hx-get="@Url.Action("ShowEditBoardName", new { boardId = Model.BoardId })"
     hx-swap="outerHTML">
     @Model.Name
-    <span class="badge bg-primary"
-          hx-get="@Url.Action("GetCardCount", "Board", new { boardId = Model.BoardId })"
-          hx-trigger="cardAdded from:body, cardRemoved from:body"
-          hx-swap="innerHTML">
-        @Model.CardCount
-    </span>
+    <vc:board-card-count board-id="@Model.BoardId" />
 </h1>
