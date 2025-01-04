@@ -5,8 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMvc();
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSingleton<IBoardService, BoardService>();
+builder.Services.AddScoped<IBoardService, CookieBoardService>();
 
 var app = builder.Build();
 

@@ -29,6 +29,7 @@ div.lanes {
     display: flex;
     flex-direction: row;
     gap: 16px;
+    overflow-x: auto;
 
     div.lane {
         border: 1px solid #ccc;
@@ -38,6 +39,7 @@ div.lanes {
         width: 350px;
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
 
         h5 {
             padding: 8px;
@@ -102,6 +104,7 @@ div.lanes {
         width: 350px;
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
 
         button.btn {
             background-color: rgba(0, 0, 0, 0.1);

@@ -5,7 +5,7 @@ namespace htmello.Data;
 
 public class BoardService : IBoardService
 {
-    public BoardDto? GetById(Guid id) => _boards.GetValueOrDefault(id);
+    public BoardDto? GetById(Guid boardId) => _boards.GetValueOrDefault(boardId);
 
     public BoardDto Add(string name, string color)
     {

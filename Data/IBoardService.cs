@@ -2,7 +2,7 @@ namespace htmello.Data;
 
 public interface IBoardService
 {
-    BoardDto? GetById(Guid id);
+    BoardDto? GetById(Guid boardId);
     BoardDto Add(string name, string color);
     IReadOnlyCollection<BoardDto> GetAll();
     void SetBoardName(Guid id, string name);
